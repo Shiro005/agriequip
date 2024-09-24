@@ -10,7 +10,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET;
 
-app.use(cors({ origin: 'http://localhost:5173' })); // Allow your frontend
+app.use(cors({ origin: 'https://agriequip1.vercel.app/' })); // Allow your frontend
 app.use(bodyParser.json());
 
 // PostgreSQL pool connection using environment variables
