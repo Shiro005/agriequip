@@ -42,7 +42,7 @@ export function Dashboard() {
 
     const fetchDashboardData = async () => {
         try {
-            const response = await fetch('https://agriequip-lilac.vercel.app/api/dashboard', {
+            const response = await fetch('https://agriequip-lilac.vercel.app/dashboard', {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }
@@ -106,7 +106,7 @@ export function Dashboard() {
         }
 
         try {
-            const response = await fetch('https://agriequip-lilac.vercel.app/api/products', {
+            const response = await fetch('https://agriequip-lilac.vercel.app/products', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

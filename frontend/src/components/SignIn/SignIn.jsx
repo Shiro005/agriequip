@@ -14,7 +14,7 @@ export function SignIn() {
         setError('');
 
         try {
-            const response = await fetch('https://agriequip-lilac.vercel.app/api/users/signin', {
+            const response = await fetch('https://agriequip-lilac.vercel.app/signin', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
