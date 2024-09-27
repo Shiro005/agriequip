@@ -5,7 +5,7 @@ const { Pool } = require('pg');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+ 
 const app = express();
 const port = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET;
@@ -14,7 +14,7 @@ app.use(cors({
   origin: 'http://localhost:5173',
   methods: ["POST", "Get"],
   credentials: true
-})); // Allow your frontend
+})); 
 app.use(bodyParser.json());
 
 // PostgreSQL pool connection using environment variables
