@@ -10,7 +10,11 @@ const app = express();
 const port = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET;
 
-app.use(cors({ origin: 'http://localhost:5173' })); // Allow your frontend
+app.use(cors({
+  origin: 'http://localhost:5173',
+  methods: ["POST", "Get"],
+  credentials: true
+})); // Allow your frontend
 app.use(bodyParser.json());
 
 // PostgreSQL pool connection using environment variables
@@ -134,10 +138,10 @@ app.delete('/api/products/:id', authenticateToken, asyncHandler(async (req, res)
 // Get products by location and/or category
 app.get('/api/products', asyncHandler(async (req, res) => {
   const { location, category } = req.query;
-  
+
   let query = 'SELECT * FROM products WHERE 1=1';
   const params = [];
-  
+
   if (location) {
     query += ' AND location = $1';
     params.push(location);
