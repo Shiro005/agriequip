@@ -1,3 +1,4 @@
+// require('dotenv').config();
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
@@ -14,7 +15,7 @@ export function SignIn() {
         setError('');
 
         try {
-            const response = await fetch('https://agriequip-backend.vercel.app/api/users/signin', {
+            const response = await fetch(`http://localhost:5000/api/users/signin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

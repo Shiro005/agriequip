@@ -1,6 +1,6 @@
+const cors = require('cors');
 require('dotenv').config(); // Load environment variables from .env file
 const express = require('express');
-const cors = require('cors');
 const { Pool } = require('pg');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
@@ -10,9 +10,23 @@ const app = express();
 const port = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET;
 
+const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : '*';
+// app.use(cors({
+//   origin: 'http://localhost:5173', // Allow frontend access from Vite React app
+// }));
+
+// app.use(bodyParser.json());
 app.use(cors({
-  origin: 'https://agriequip-beige.vercel.app/'
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true // If you are dealing with cookies, authentication headers, etc.
 }));
+
 app.use(bodyParser.json());
 
 // PostgreSQL pool connection using environment variables
@@ -112,6 +126,7 @@ app.post('/api/products', authenticateToken, asyncHandler(async (req, res) => {
   res.json(newProduct.rows[0]);
 }));
 
+// Delete a product route
 app.delete('/api/products/:id', authenticateToken, asyncHandler(async (req, res) => {
   const { id } = req.params;
   const owner = req.user.name; // Authenticated user's name
@@ -131,7 +146,6 @@ app.delete('/api/products/:id', authenticateToken, asyncHandler(async (req, res)
 
   res.json({ message: 'Product successfully deleted' });
 }));
-
 
 // Get products by location and/or category
 app.get('/api/products', asyncHandler(async (req, res) => {
