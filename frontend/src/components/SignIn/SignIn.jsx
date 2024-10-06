@@ -1,4 +1,3 @@
-// require('dotenv').config();
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
@@ -15,7 +14,7 @@ export function SignIn() {
         setError('');
 
         try {
-            const response = await fetch(`https://agriequip-api.vercel.app/api/users/signin`, {
+            const response = await fetch(`http://localhost:5000/api/users/signin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -23,14 +22,15 @@ export function SignIn() {
                 body: JSON.stringify({ email, password }),
             });
 
-            const data = await response.json();
-
-            if (response.ok) {
-                login({ token: data.token, name: data.name });
-                navigate('/dashboard');
-            } else {
-                setError(data.error || 'Sign-in failed');
+            if (!response.ok) {
+                const errorData = await response.json();
+                setError(errorData.error || 'Sign-in failed');
+                return;
             }
+
+            const data = await response.json();
+            login({ token: data.token, name: data.name });
+            navigate('/dashboard');
         } catch (err) {
             console.error('Error during sign-in:', err);
             setError('An error occurred during sign-in');
@@ -38,7 +38,7 @@ export function SignIn() {
     };
 
     return (
-        <section className="bg-gray-50 flex items-center justify-center ">
+        <section className="bg-gray-50 flex items-center justify-center">
             <div className="bg-gray-100 flex rounded-2xl shadow-lg p-5 items-center mx-auto lg:px-8 mt-32">
                 <div className="md:w-1/2 px-8 md:px-16">
                     <h2 className="font-bold text-2xl text-green-600">Sign <span className='text-gray-900'>In</span></h2>

@@ -12,11 +12,15 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 app.use(
   cors({
-    origin: ['https://agriequip-rho.vercel.app/'],
+    origin: "http://localhost:5173",  // Corrected URL, no trailing slash
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,  // Enable this if your frontend needs to send cookies
+    optionsSuccessStatus: 204
   })
-)
+);
+app.use(express.json());
 
-app.use(bodyParser.json());
+app.use(bodyParser.json()); 
 
 // PostgreSQL pool connection using environment variables
 const pool = new Pool({
