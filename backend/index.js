@@ -12,7 +12,7 @@ const JWT_SECRET = process.env.JWT_SECRET;
 
 app.use(
   cors({
-    origin: "http://localhost:5173",  // Corrected URL, no trailing slash
+    origin: "https://agriequip-silk.vercel.app/",  // Corrected URL, no trailing slash
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,  // Enable this if your frontend needs to send cookies
     optionsSuccessStatus: 204

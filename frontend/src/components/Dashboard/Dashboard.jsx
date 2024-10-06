@@ -42,7 +42,7 @@ export function Dashboard() {
 
     const fetchDashboardData = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/dashboard', {
+            const response = await fetch('https://agriequip-api.vercel.app/api/dashboard', {
                 headers: {
                     'Authorization': `Bearer ${user.token}`
                 }
@@ -56,7 +56,7 @@ export function Dashboard() {
 
     const fetchProducts = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/products?location=${selectedAddress}&category=${category}`);
+            const response = await fetch(`https://agriequip-api.vercel.app/api/products?location=${selectedAddress}&category=${category}`);
             const data = await response.json();
             setProducts(data);
         } catch (error) {
@@ -106,7 +106,7 @@ export function Dashboard() {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/products', {
+            const response = await fetch('https://agriequip-api.vercel.app/api/products', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ export function Dashboard() {
 
     const handleDeleteProduct = async (productId) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/products/${productId}`, {
+            const response = await fetch(`https://agriequip-api.vercel.app/api/products/${productId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${user.token}`,

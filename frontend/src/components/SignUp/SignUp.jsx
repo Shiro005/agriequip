@@ -16,7 +16,7 @@ export function SignUp() {
         setError('');
 
         try {
-            const response = await fetch('/api/users/signup', {
+            const response = await fetch('https://agriequip-api.vercel.app/api/users/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
