@@ -16,7 +16,7 @@ export function SignUp() {
         setError('');
 
         try {
-            const response = await fetch('https://agriequip.onrender.com/api/users/signup', {
+            const response = await fetch('/api/users/signup', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

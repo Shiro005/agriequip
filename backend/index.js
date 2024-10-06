@@ -11,11 +11,6 @@ const port = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET;
 
 const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : '*';
-// app.use(cors({
-//   origin: 'http://localhost:5173', // Allow frontend access from Vite React app
-// }));
-
-// app.use(bodyParser.json());
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {

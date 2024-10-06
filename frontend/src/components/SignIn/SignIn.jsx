@@ -1,4 +1,3 @@
-// require('dotenv').config();
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
@@ -15,7 +14,7 @@ export function SignIn() {
         setError('');
 
         try {
-            const response = await fetch(`https://agriequip.onrender.com/api/users/signin`, {
+            const response = await fetch(`/api/users/signin`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -23,7 +22,9 @@ export function SignIn() {
                 body: JSON.stringify({ email, password }),
             });
 
-            const data = await response.json();
+            // Ensure the response has content
+            const text = await response.text();
+            const data = text ? JSON.parse(text) : {};
 
             if (response.ok) {
                 login({ token: data.token, name: data.name });
